@@ -26,27 +26,23 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
+        /* Percorrendo por cada feed dentro de allFeeds
+         * e verificando se há uma URL definida e que não esteja vazia
          */
         it('has defined URL in each feed ', function() {
             allFeeds.forEach((feed) => {
                 expect(feed.url).toBeDefined();
-                expect(feed.url).not.toBe(0);
+                expect(feed.url.length).not.toBe(0);
             });
         });
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
+        /* Percorrendo por cada feed dentro de allFeeds
+         * e verificando se há um nome definido e que não esteja vazio
          */
-
         it('has defined name in each feed', function() {
             allFeeds.forEach((feed) => {
                 expect(feed.name).toBeDefined();
-                expect(feed.name).not.toBe(0);
+                expect(feed.name.length).not.toBe(0);
             });
         });
     });
@@ -55,22 +51,14 @@ $(function() {
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
-         
+        // Verificando se o menu, por padrão, não esteja aparecendo         
         it('is hidden by default', function() {
             expect(document.querySelector('body').classList.contains('menu-hidden')).toBe(true);
         });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
+         /* Verificando se o menu, depois de clica-lo, esteja aparecendo
+          * e desaparacendo depois do clica-lo novamente
           */
-
         it('change menu visibility on menu click ', function() {
             document.querySelector('.menu-icon-link').click();
             expect(document.querySelector('body').classList.contains('menu-hidden')).toBe(false);
@@ -83,33 +71,28 @@ $(function() {
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
 
-    
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
+        /* Verificando se há pelo menos um elemento '.entry' depois 
+         * da função loadFeed ser chamada.
+         * Usando done como callback pois a função loadFeed é assincrona
          */
         beforeEach(function(done) {
-			loadFeed(0, function() {
-				done();
-			});
+			loadFeed(0, done);
         });
 
-        it('must have at least a single .entry element after loadFeed is called', function(done) {
+        it('must have at least a single .entry element after loadFeed is called', function() {
 			const entries = document.querySelectorAll('.feed .entry');
-            expect(!!entries[0]).toBe(true);
-            done();
+            expect(entries).toBeGreaterThan(0);         
 		});
     });
+
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+        /* Verificando se o conteudo de '.feed' é atualizado 
+         * depois de carregar um segundo feed pela função loadFeed
          */
 
+        // variaveis globais 
         let firstFeed,
             newFeed;
 
@@ -124,9 +107,8 @@ $(function() {
             });
         });
     
-        it('changes the content when new feed is loaded by the loadFeed', function(done) {
+        it('changes the content when new feed is loaded by the loadFeed', function() {
             expect(newFeed).not.toBe(firstFeed);
-            done();
         });
     });
 }());
