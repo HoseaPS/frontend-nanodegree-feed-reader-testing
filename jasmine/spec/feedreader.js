@@ -80,8 +80,8 @@ $(function() {
         });
 
         it('must have at least a single .entry element after loadFeed is called', function() {
-			const entries = document.querySelectorAll('.feed .entry');
-            expect(entries).toBeGreaterThan(0);         
+            const entries = document.querySelectorAll('.feed .entry');
+            expect(entries.length).toBeGreaterThan(0);         
 		});
     });
 
